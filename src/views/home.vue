@@ -23,7 +23,7 @@
 
     <div class="flex flex-col md:flex-row flex-1">
       <!-- Sidebar -->
-      <Sidebar :activePage="'ocorrencias'" />
+      <Sidebar :activePage="''" />
         
       <!-- Main Content -->
       <main class="flex-1 p-6">
