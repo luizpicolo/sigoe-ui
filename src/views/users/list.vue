@@ -37,10 +37,13 @@ const breadcrumbItems = [
         <div class="bg-white rounded-md shadow p-4 mb-6">
           <div class="flex flex-wrap gap-2">
             <a href="/administrador/estudantes/novo">
-              <Button name="Novo Estudante" />
+              <Button color="green">
+                <i class="fa-solid fa-user"></i>
+                Novo Estudante
+              </Button>
             </a>
 
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-2 ml-auto">
               <span class="text-sm">Ordenar por</span>
               <div class="relative w-[180px]">
                 <select
@@ -65,9 +68,12 @@ const breadcrumbItems = [
               </div>
             </div>
 
-            <div class="flex items-center gap-2 ml-auto">
+            <div class="flex items-center gap-2">
               <Input type="text" placeholder="Buscar..." class="w-[200px]" />
-              <Button class="bg-green-600 hover:bg-green-700 text-white" name="Buscar"/>
+              <Button color="green">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                Busca
+              </Button>
             </div>
           </div>
         </div>
@@ -108,7 +114,10 @@ const breadcrumbItems = [
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Sim</td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Sim</td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  <Button name="Ações" />
+                  <Button customClass="w-full" color="green" to="/administrador/usuarios/visualizar/9">
+                    <i class="fa-solid fa-eye"></i>
+                    Visualizar
+                  </Button>
                 </td>
               </tr>
             </tbody>

@@ -34,8 +34,7 @@
             <router-link
               to="/administrador/usuarios/listar"
               class="block px-2 py-1 text-sm hover:bg-gray-100 rounded"
-              :class="{ 'bg-green-50 text-green-700': activePage === 'usuarios', 'text-gray-700': activePage !== 'usuarios' }"
-            >
+              :class="{ 'bg-green-50 text-green-700': activePage === 'usuarios', 'text-gray-700': activePage !== 'usuarios' }">
               Usuários
             </router-link>
           </li>
