@@ -32,9 +32,16 @@ const breadcrumbItems = [
       <main class="flex-1 p-6">
         <Breadcrumb :items="breadcrumbItems" />
 
-        <h1 class="text-2xl font-bold mb-6">Detalhes do Usuário</h1>
+        <h1 class="text-2xl font-bold mb-1">Detalhes do Usuário</h1>
 
-        <div class="grid grid-cols-4 gap-4 mb-6 p-1 rounded-lg shadow-sm">
+        <div class="flex justify-end">
+          <Button to="/administrador/usuarios/listar" customClass="bg-white border-gray-200 !text-gray-900 hover:bg-gray-100 !focus:ring-gray-300">
+            <i class="fa-solid fa-arrow-left"></i>
+            Voltar
+          </Button>
+        </div>
+
+        <div class="grid grid-cols-4 gap-4 mb-6 mt-4 rounded-lg shadow-sm">
           <Card customClass="col-span-1 " title="Foto">
             <div class="flex justify-center items-center mt-5 pt-2 pb-5">
               <img src="/placeholder.svg" width="200" alt="" srcset="">
