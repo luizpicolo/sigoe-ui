@@ -3,7 +3,6 @@ import Sidebar from '@/components/sidebar.vue'
 import Button from '@/components/ui/button.vue'
 import Breadcrumb from '@/components/breadcrumb.vue'
 import Card from '@/components/ui/card.vue'
-import Input from '@/components/input.vue'
 
 const breadcrumbItems = [
   { label: "Home", href: "/" },
@@ -62,15 +61,15 @@ const breadcrumbItems = [
             </dl>
           </Card>
           <Card customClass="col-span-1" title="Ações">
-            <Button color="green" customClass="mt-4 w-full">
-                <i class="fa-solid fa-user-shield"></i>
+            <Button customClass="mt-4 w-full bg-green-600 hover:bg-green-700 focus:ring-green-500">
+                <i class="fa-solid fa-edit"></i>
               Gerenciar Permissões
             </Button>
-            <Button color="blue" customClass="mt-1 w-full">
+            <Button customClass="mt-4 w-full bg-blue-600 hover:bg-blue-700 focus:ring-blue-500">
               <i class="fa-solid fa-edit"></i>
               Editar Usuário
             </Button>
-            <Button color="red" customClass="mt-1 w-full">
+            <Button customClass="mt-4 w-full bg-red-600 hover:bg-red-700 focus:ring-red-500">
               <i class="fa-solid fa-trash-alt"></i>
               Excluir Usuário
             </Button>
