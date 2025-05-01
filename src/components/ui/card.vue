@@ -7,8 +7,8 @@
 </script>
 
 <template>
-  <div :class="`bg-white p-4 bg-gray-50 border border-gray-200 rounded-md ${ customClass }`">
-    <h2 class="text-lg font-semibold mb-2">{{ title }}</h2>
+  <div :class="`bg-white p-4 border border-gray-200 rounded-md ${ customClass }`">
+    <h1 class="text-2xl font-extrabold mb-2">{{ title }}</h1>
     <p class="text-sm text-gray-600">{{ description }}</p>
     <slot></slot>
   </div>

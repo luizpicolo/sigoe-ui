@@ -3,13 +3,25 @@ import Sidebar from '@/components/sidebar.vue'
 import Button from '@/components/ui/button.vue'
 import Breadcrumb from '@/components/breadcrumb.vue'
 import Card from '@/components/ui/card.vue'
-import Input from '@/components/input.vue'
+import Input from '@/components/ui/input.vue'
+import { ref } from 'vue'
+
+// https://github.com/HENNGE/vue3-pagination
+import VPagination from "@hennge/vue3-pagination";
+import "@hennge/vue3-pagination/dist/vue3-pagination.css";
+
 
 const breadcrumbItems = [
   { label: "Home", href: "/" },
   { label: "Administrador", href: "/administrador" },
   { label: "Usuários", href: "/administrador/usuarios" },
 ];
+
+const page = ref(1);
+const updateHandler = (newPage) => {
+  page.value = newPage;
+  console.log(`Page updated to: ${newPage}`);
+};
 </script>
 
 <template>
@@ -36,12 +48,13 @@ const breadcrumbItems = [
 
         <div class="bg-white rounded-md shadow p-4 mb-6">
           <div class="flex flex-wrap gap-2">
-            <a href="/administrador/estudantes/novo">
-              <Button color="green">
-                <i class="fa-solid fa-user"></i>
-                Novo Estudante
-              </Button>
-            </a>
+          <Button 
+            customClass="bg-green-600 hover:bg-green-700 focus:ring-green-500"
+            to="/administrador/usuarios/novo"
+          >
+            <i class="fa-solid fa-user"></i>
+            Novo Usuário
+          </Button>
 
             <div class="flex items-center gap-2 ml-auto">
               <span class="text-sm">Ordenar por</span>
@@ -70,7 +83,7 @@ const breadcrumbItems = [
 
             <div class="flex items-center gap-2">
               <Input type="text" placeholder="Buscar..." class="w-[200px]" />
-              <Button color="green">
+              <Button customClass="bg-green-600 hover:bg-green-700 focus:ring-green-500">
                 <i class="fa-solid fa-magnifying-glass"></i>
                 Busca
               </Button>
@@ -114,7 +127,7 @@ const breadcrumbItems = [
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Sim</td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Sim</td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  <Button customClass="w-full" color="green" to="/administrador/usuarios/visualizar/9">
+                  <Button customClass="w-full bg-green-600 hover:bg-green-700 focus:ring-green-500" to="/administrador/usuarios/visualizar/9">
                     <i class="fa-solid fa-eye"></i>
                     Visualizar
                   </Button>
@@ -122,6 +135,16 @@ const breadcrumbItems = [
               </tr>
             </tbody>
           </table>
+
+            <div class="flex justify-end items-end p-4">
+              <VPagination
+                v-model="page"
+                :pages="100"
+                :range-size="2"
+                active-color="#00a63e"
+                @update:modelValue="updateHandler"
+              />
+            </div>
         </div>
       </main>
     </div>

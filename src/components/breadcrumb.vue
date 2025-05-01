@@ -1,3 +1,17 @@
+<script setup>
+defineProps({
+  items: {
+    type: Array,
+    required: true,
+    validator: (value) =>
+      value.every(
+        (item) =>
+          typeof item.label === "string" && typeof item.href === "string"
+      ),
+  },
+});
+</script>
+
 <template>
   <nav class="flex text-sm mb-6" aria-label="Breadcrumb">
     <ol class="inline-flex items-center space-x-1 md:space-x-2">
@@ -21,24 +35,3 @@
     </ol>
   </nav>
 </template>
-
-<script>
-export default {
-  name: "Breadcrumb",
-  props: {
-    items: {
-      type: Array,
-      required: true,
-      validator: (value) =>
-        value.every(
-          (item) =>
-            typeof item.label === "string" && typeof item.href === "string"
-        ),
-    },
-  },
-};
-</script>
-
-<style scoped>
-/* Add any additional styles if needed */
-</style>

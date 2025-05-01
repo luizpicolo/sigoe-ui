@@ -1,5 +1,12 @@
 <script setup>
-  import UserProfile from '@/components/userprofile.vue'
+import UserProfile from '@/components/userprofile.vue'
+
+defineProps({
+  activePage: {
+    type: String,
+    required: true
+  }
+});
 </script>
 
 <template>
@@ -94,14 +101,3 @@
     </nav>
   </aside>
 </template>
-
-<script>
-export default {
-  props: {
-    activePage: {
-      type: String,
-      required: true
-    }
-  }
-};
-</script>

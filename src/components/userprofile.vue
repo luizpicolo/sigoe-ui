@@ -1,3 +1,20 @@
+<script setup>
+  import { ref } from "vue";
+
+  defineProps({
+    name: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+    },
+  });
+
+  const imageSrc = ref("/placeholder.svg?height=48&width=48");
+</script>
+
 <template>
   <div class="p-4 border-b border-gray-200 flex items-center">
     <div class="w-12 h-12 rounded-md bg-gray-200 mr-3 overflow-hidden">
@@ -9,28 +26,3 @@
     </div>
   </div>
 </template>
-
-<script>
-export default {
-  name: "UserProfile",
-  props: {
-    name: {
-      type: String,
-      required: true,
-    },
-    email: {
-      type: String,
-      required: true,
-    },
-  },
-  data() {
-    return {
-      imageSrc: "/placeholder.svg?height=48&width=48",
-    };
-  },
-};
-</script>
-
-<style scoped>
-/* Add any scoped styles here if needed */
-</style>

@@ -1,7 +1,6 @@
 <script setup>
   import { ref } from 'vue'
-  import Input from '@/components/input.vue'
-  import Image from '@/components/image.vue'
+  import Input from '@/components/ui/input.vue'
   import { useRouter } from 'vue-router'
 
   const router = useRouter()
@@ -20,7 +19,7 @@
     <div class="min-h-screen flex flex-col items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div class="max-w-md w-full space-y-8">
         <div class="flex flex-col items-center">
-          <Image />
+          <img src="/logo.png" alt="Instituto Federal Mato Grosso do Sul" width="120" height="113" />
         </div>
 
         <div class="bg-white p-8 border border-gray-200 rounded-md shadow-sm">

@@ -19,7 +19,7 @@
 <template>
   <div>
     <template v-if="label">
-      <label :for="id" class="block text-sm font-medium text-gray-700">{{ label }}</label>
+      <label :for="id" class="mb-2 block text-sm font-medium text-gray-700">{{ label }}</label>
     </template>
     <input
       :id="id"
