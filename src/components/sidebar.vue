@@ -47,7 +47,7 @@ defineProps({
           </li>
           <li>
             <router-link
-              to="/administrador/estudantes"
+              to="/administrador/estudantes/listar"
               class="block px-2 py-1 text-sm hover:bg-gray-100 rounded"
               :class="{ 'bg-green-50 text-green-700': activePage === 'estudantes', 'text-gray-700': activePage !== 'estudantes' }"
             >
@@ -56,7 +56,7 @@ defineProps({
           </li>
           <li>
             <router-link
-              to="/administrador/cursos"
+              to="/administrador/cursos/listar"
               class="block px-2 py-1 text-sm hover:bg-gray-100 rounded"
               :class="{ 'bg-green-50 text-green-700': activePage === 'cursos', 'text-gray-700': activePage !== 'cursos' }"
             >
@@ -65,7 +65,7 @@ defineProps({
           </li>
           <li>
             <router-link
-              to="/administrador/turmas"
+              to="/administrador/turmas/listar"
               class="block px-2 py-1 text-sm hover:bg-gray-100 rounded"
               :class="{ 'bg-green-50 text-green-700': activePage === 'turmas', 'text-gray-700': activePage !== 'turmas' }"
             >

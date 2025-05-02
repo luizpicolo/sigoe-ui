@@ -5,6 +5,9 @@ import UserList from '@/views/users/list.vue'
 import UserView from '@/views/users/show.vue'
 import UserNew from '@/views/users/new.vue'
 import UserPermissions from '@/views/users/permissions.vue'
+import StudentList from '@/views/students/list.vue'
+import CourseList from '@/views/courses/list.vue'
+import SchoolGroupsList from '@/views/school_groups/list.vue'
 
 const routes = [
   { path: '/', component: Login },
@@ -12,7 +15,10 @@ const routes = [
   { path: '/administrador/usuarios/listar', component: UserList },
   { path: '/administrador/usuarios/visualizar/:id', component: UserView },
   { path: '/administrador/usuarios/novo', component: UserNew },
-  { path: '/administrador/usuarios/permissoes/:id/', component: UserPermissions }
+  { path: '/administrador/usuarios/permissoes/:id/', component: UserPermissions },
+  { path: '/administrador/estudantes/listar', component: StudentList },
+  { path: '/administrador/cursos/listar', component: CourseList },
+  { path: '/administrador/turmas/listar', component: SchoolGroupsList },
 ]
 
 const router = createRouter({
