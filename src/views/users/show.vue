@@ -68,7 +68,7 @@ const breadcrumbItems = [
             </dl>
           </Card>
           <Card customClass="col-span-1" title="Ações">
-            <Button customClass="mt-4 w-full bg-green-600 hover:bg-green-700 focus:ring-green-500">
+            <Button to="/administrador/usuarios/permissoes/9" customClass="mt-4 w-full bg-green-600 hover:bg-green-700 focus:ring-green-500">
                 <i class="fa-solid fa-edit"></i>
               Gerenciar Permissões
             </Button>
