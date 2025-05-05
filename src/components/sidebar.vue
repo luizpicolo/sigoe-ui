@@ -80,7 +80,7 @@ defineProps({
         <ul class="space-y-1">
           <li>
             <router-link
-              to="/ocorrencias"
+              to="/ocorrencias/ocorrencias/listar"
               class="block px-2 py-1 text-sm hover:bg-gray-100 rounded"
               :class="{ 'bg-green-50 text-green-700': activePage === 'ocorrencias', 'text-gray-700': activePage !== 'ocorrencias' }"
             >

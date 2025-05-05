@@ -8,6 +8,7 @@ import UserPermissions from '@/views/users/permissions.vue'
 import StudentList from '@/views/students/list.vue'
 import CourseList from '@/views/courses/list.vue'
 import SchoolGroupsList from '@/views/school_groups/list.vue'
+import IncidentsList from '@/views/incidents/list.vue'
 
 const routes = [
   { path: '/', component: Login },
@@ -19,6 +20,7 @@ const routes = [
   { path: '/administrador/estudantes/listar', component: StudentList },
   { path: '/administrador/cursos/listar', component: CourseList },
   { path: '/administrador/turmas/listar', component: SchoolGroupsList },
+  { path: '/ocorrencias/ocorrencias/listar', component: IncidentsList },
 ]
 
 const router = createRouter({
