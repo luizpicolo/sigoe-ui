@@ -19,8 +19,8 @@ export const logout = async () => {
   try {
     await axios.delete(`${BASE_URL}/api/auth/logout`)
     localStorage.removeItem('jwt')
-    router.push('/')
+    return true
   } catch (err) {
-    console.error('Erro ao sair:', err)
+    return false
   }
 }

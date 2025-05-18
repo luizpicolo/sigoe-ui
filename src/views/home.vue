@@ -1,23 +1,12 @@
 <script setup>
-import { onMounted } from "vue";
 import Sidebar from '@/components/sidebar.vue'
 import Breadcrumb from '@/components/breadcrumb.vue'
 import Card from '@/components/ui/card.vue'
-import { useRouter } from 'vue-router'
-import { isTokenValid, logout } from '@/composables/authentication'
-const router = useRouter()
+import Header from '@/components/header.vue'
 
 const breadcrumbItems = [
   { label: 'Home', href: "/" }
 ];
-
-onMounted(async () => {
-  if (await isTokenValid()) {
-    router.push('/home')
-  } else {
-    router.push('/')
-  }
-})
 </script>
 
 <template>

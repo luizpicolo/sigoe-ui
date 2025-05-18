@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue'
 import Input from '@/components/ui/input.vue'
 import { useRouter } from 'vue-router'
-import { isTokenValid } from '@/composables/authentication'
+import { isTokenValid } from '@/services/authentication'
 import axios from 'axios'
 
 const router = useRouter()
