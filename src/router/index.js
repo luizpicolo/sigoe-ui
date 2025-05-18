@@ -9,6 +9,7 @@ import StudentList from '@/views/students/list.vue'
 import CourseList from '@/views/courses/list.vue'
 import SchoolGroupsList from '@/views/school_groups/list.vue'
 import IncidentsList from '@/views/incidents/list.vue'
+import IncidentsNew from '@/views/incidents/new.vue'
 
 const routes = [
   { path: '/', component: Login },
@@ -21,6 +22,7 @@ const routes = [
   { path: '/administrador/cursos/listar', component: CourseList },
   { path: '/administrador/turmas/listar', component: SchoolGroupsList },
   { path: '/ocorrencias/ocorrencias/listar', component: IncidentsList },
+  { path: '/ocorrencias/ocorrencias/novo', component: IncidentsNew },
 ]
 
 const router = createRouter({

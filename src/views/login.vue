@@ -1,17 +1,45 @@
 <script setup>
-  import { ref } from 'vue'
-  import Input from '@/components/ui/input.vue'
-  import { useRouter } from 'vue-router'
+import { ref, onMounted } from 'vue'
+import Input from '@/components/ui/input.vue'
+import { useRouter } from 'vue-router'
+import { isTokenValid } from '@/composables/authentication'
+import axios from 'axios'
 
-  const router = useRouter()
+const router = useRouter()
+const username = ref('')
+const password = ref('')
+const error = ref('')
 
-  const username = ref('')
-  const password = ref('')
-
-  const handleSubmit = (e) => {
-    alert(123)
+onMounted(async () => {
+  if (await isTokenValid()) {
     router.push('/home')
+  } else {
+    router.push('/')
   }
+})
+
+const handleSubmit = async () => {
+  error.value = ''
+  try {
+    const response = await axios.post('http://localhost:3000/api/auth/login', {
+      user: {
+        username: username.value,
+        password: password.value
+      }
+    })
+    
+    // O token JWT vem no header 'Authorization'
+    const token = response.headers['authorization']
+    if (token) {
+      localStorage.setItem('jwt', token)
+      router.push('/home')
+    } else {
+      error.value = 'Token não recebido. Tente novamente.'
+    }
+  } catch (err) {
+    error.value = 'Usuário ou senha inválidos'
+  }
+}
 </script>
 
 <template>
@@ -44,6 +72,7 @@
               v-model="password"
               required
             />
+            <div v-if="error" class="text-red-600 text-sm text-center">{{ error }}</div>
             <div>
               <button
                 type="submit"

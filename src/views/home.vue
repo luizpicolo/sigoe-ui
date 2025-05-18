@@ -1,12 +1,23 @@
 <script setup>
-  import Sidebar from '@/components/sidebar.vue'
-  import Button from '@/components/ui/button.vue'
-  import Breadcrumb from '@/components/breadcrumb.vue'
-  import Card from '@/components/ui/card.vue'
-  
-  const breadcrumbItems = [
-    { label: 'Home', href: "/" }
-  ];
+import { onMounted } from "vue";
+import Sidebar from '@/components/sidebar.vue'
+import Breadcrumb from '@/components/breadcrumb.vue'
+import Card from '@/components/ui/card.vue'
+import { useRouter } from 'vue-router'
+import { isTokenValid, logout } from '@/composables/authentication'
+const router = useRouter()
+
+const breadcrumbItems = [
+  { label: 'Home', href: "/" }
+];
+
+onMounted(async () => {
+  if (await isTokenValid()) {
+    router.push('/home')
+  } else {
+    router.push('/')
+  }
+})
 </script>
 
 <template>
@@ -17,21 +28,27 @@
         <img src="/logo_ifms.png" width="160">
       </div>
       <div class="text-sm">
-        SIGOE - Controle de ocorrências escolares - <span class="text-green-600">Sair</span>
+        SIGOE - Controle de ocorrências escolares - <span class="text-green-600">
+          <button @click="logout">
+            Sair
+          </button>
+        </span>
       </div>
     </header>
 
     <div class="flex flex-col md:flex-row flex-1">
       <!-- Sidebar -->
       <Sidebar :activePage="''" />
-        
+
       <!-- Main Content -->
       <main class="flex-1 p-6">
         <Breadcrumb :items="breadcrumbItems" />
 
         <div class="mb-6 bg-green-50 border border-green-200 rounded-md p-4 flex items-start">
-          <svg class="text-green-600 mr-3 mt-0.5 h-5 w-5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M12 2a10 10 0 100 20 10 10 0 000-20z" />
+          <svg class="text-green-600 mr-3 mt-0.5 h-5 w-5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none"
+            viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 8v4m0 4h.01M12 2a10 10 0 100 20 10 10 0 000-20z" />
           </svg>
           <div>
             <p class="text-green-800">
@@ -46,10 +63,10 @@
         <h1 class="text-2xl font-bold mb-6">Dashboard</h1>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 mb-6 p-4 rounded-lg shadow-sm">
-          <Card title="Card 1" description="Aqui será um diagrama"/>
-          <Card title="Card 2" description="Aqui será um diagrama"/>
-          <Card title="Card 3" description="Aqui será um diagrama"/>
-          <Card title="Card 4" description="Aqui será um diagrama"/>
+          <Card title="Card 1" description="Aqui será um diagrama" />
+          <Card title="Card 2" description="Aqui será um diagrama" />
+          <Card title="Card 3" description="Aqui será um diagrama" />
+          <Card title="Card 4" description="Aqui será um diagrama" />
         </div>
       </main>
     </div>
