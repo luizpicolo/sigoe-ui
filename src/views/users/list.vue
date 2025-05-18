@@ -1,15 +1,16 @@
 <script setup>
+import { ref } from 'vue'
+
 import Sidebar from '@/components/sidebar.vue'
 import Button from '@/components/ui/button.vue'
 import Breadcrumb from '@/components/breadcrumb.vue'
 import Card from '@/components/ui/card.vue'
 import Input from '@/components/ui/input.vue'
-import { ref } from 'vue'
+import Header from '@/components/header.vue'
 
 // https://github.com/HENNGE/vue3-pagination
 import VPagination from "@hennge/vue3-pagination";
 import "@hennge/vue3-pagination/dist/vue3-pagination.css";
-
 
 const breadcrumbItems = [
   { label: "Home", href: "/" },
@@ -26,15 +27,7 @@ const updateHandler = (newPage) => {
 
 <template>
   <div class="min-h-screen flex flex-col">
-    <!-- Header -->
-    <header class="bg-white border-b border-gray-200 py-2 px-4 flex justify-between items-center">
-      <div class="flex items-center">
-        <img src="/logo_ifms.png" width="160">
-      </div>
-      <div class="text-sm">
-        SIGOE - Controle de ocorrências escolares - <span class="text-green-600">Sair</span>
-      </div>
-    </header>
+    <Header />
 
     <div class="flex flex-col md:flex-row flex-1">
       <!-- Sidebar -->
