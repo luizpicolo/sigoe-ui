@@ -1,4 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { isTokenValid } from '@/services/authentication'
+
 import Home from '@/views/home.vue'
 import Login from '@/views/login.vue'
 import UserList from '@/views/users/list.vue'
