@@ -1,16 +1,20 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { list } from '@/services/users'
 
 import Sidebar from '@/components/sidebar.vue'
 import Button from '@/components/ui/button.vue'
 import Breadcrumb from '@/components/breadcrumb.vue'
-import Card from '@/components/ui/card.vue'
 import Input from '@/components/ui/input.vue'
 import Header from '@/components/header.vue'
-
-// https://github.com/HENNGE/vue3-pagination
 import VPagination from "@hennge/vue3-pagination";
 import "@hennge/vue3-pagination/dist/vue3-pagination.css";
+
+const users = ref([]);
+const usersTotal = ref(0);
+const page = ref(1);
+const orderby = ref('id')
+const search = ref('');
 
 const breadcrumbItems = [
   { label: "Home", href: "/" },
@@ -18,11 +22,30 @@ const breadcrumbItems = [
   { label: "Usuários", href: "/administrador/usuarios" },
 ];
 
-const page = ref(1);
-const updateHandler = (newPage) => {
-  page.value = newPage;
-  console.log(`Page updated to: ${newPage}`);
-};
+onMounted(() => {
+  fetchUsers()
+})
+
+const handleOrderBy = (event) => {
+  orderby.value = event.target.value
+  fetchUsers()
+}
+
+const fetchUsers = async () => {
+  const response = await list(page.value, orderby.value, search.value)
+  users.value = response.users
+  usersTotal.value = response.total
+}
+
+const handleSearch = () => {
+  page.value = 1
+  fetchUsers()
+}
+
+const handlerUpdatePagination = (newPage) => {
+  page.value = newPage
+  fetchUsers()
+}
 </script>
 
 <template>
@@ -41,22 +64,21 @@ const updateHandler = (newPage) => {
 
         <div class="bg-white rounded-md shadow p-4 mb-6">
           <div class="flex flex-wrap gap-2">
-          <Button 
-            customClass="bg-green-600 hover:bg-green-700 focus:ring-green-500"
-            to="/administrador/usuarios/novo"
-          >
-            <i class="fa-solid fa-user"></i>
-            Novo Usuário
-          </Button>
+            <Button 
+              customClass="bg-green-600 hover:bg-green-700 focus:ring-green-500"
+              to="/administrador/usuarios/novo"
+            >
+              <i class="fa-solid fa-user"></i>
+              Novo Usuário
+            </Button>
 
             <div class="flex items-center gap-2 ml-auto">
               <span class="text-sm">Ordenar por</span>
               <div class="relative w-[180px]">
-                <select
+                <select @change.prevent="handleOrderBy"
                   class="block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm">
-                  <option value="name">Nome</option>
-                  <option value="course">Curso</option>
-                  <option value="class">Turma</option>
+                  <option value="id">ID</option>
+                  <option value="name">Nome</option>>
                 </select>
               </div>
             </div>
@@ -75,11 +97,11 @@ const updateHandler = (newPage) => {
             </div>
 
             <div class="flex items-center gap-2">
-              <Input type="text" placeholder="Buscar..." class="w-[200px]" />
-              <Button customClass="bg-green-600 hover:bg-green-700 focus:ring-green-500">
+              <Input v-model="search" type="text" placeholder="Buscar..." class="w-[200px]" @keyup.enter="handleSearch" />
+              <button class="justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white   focus:outline-none focus:ring-2 focus:ring-offset-2 bg-green-600 hover:bg-green-700 focus:ring-green-500" @click="handleSearch">
                 <i class="fa-solid fa-magnifying-glass"></i>
                 Busca
-              </Button>
+              </button>
             </div>
           </div>
         </div>
@@ -111,33 +133,47 @@ const updateHandler = (newPage) => {
                 </th>
               </tr>
             </thead>
-            <tbody v-for="(value, i) in 5" class="bg-white divide-y divide-gray-200">
-              <tr>
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Luiz Picolo</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">luiz.picolo@ifms.edu.br</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Aquidauana</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">luiz.picolo</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Sim</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Sim</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  <Button customClass="w-full bg-green-600 hover:bg-green-700 focus:ring-green-500" to="/administrador/usuarios/visualizar/9">
-                    <i class="fa-solid fa-eye"></i>
-                    Visualizar
-                  </Button>
-                </td>
+            <tbody>
+              <tr v-for="(user, i) in users" :key="user.id" class="bg-white divide-y divide-gray-200">
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ user.name }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ user.email }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ user.polo.name }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ user.username }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <span v-if="user.admin" class="text-green-600">
+                  <i class="fa-solid fa-circle-check"></i> Sim
+                </span>
+                <span v-else class="text-red-600">
+                  <i class="fa-solid fa-circle-xmark"></i> Não
+                </span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <span v-if="user.status" class="text-green-600">
+                  <i class="fa-solid fa-circle-check"></i> Sim
+                </span>
+                <span v-else class="text-red-600">
+                  <i class="fa-solid fa-circle-xmark"></i> Não
+                </span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <Button customClass="w-full bg-green-600 hover:bg-green-700 focus:ring-green-500" :to="`/administrador/usuarios/visualizar/${user.id}`">
+                <i class="fa-solid fa-eye"></i>
+                Visualizar
+                </Button>
+              </td>
               </tr>
             </tbody>
           </table>
 
-            <div class="flex justify-end items-end p-4">
-              <VPagination
-                v-model="page"
-                :pages="100"
-                :range-size="2"
-                active-color="#00a63e"
-                @update:modelValue="updateHandler"
-              />
-            </div>
+          <div class="flex justify-end items-end p-4">
+            <VPagination
+              v-model="page"
+              :pages="Math.ceil(usersTotal / 12)"
+              :range-size="2"
+              active-color="#00a63e"
+              @update:modelValue="handlerUpdatePagination"
+            />
+          </div>
         </div>
       </main>
     </div>
