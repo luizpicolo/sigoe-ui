@@ -1,8 +1,13 @@
 <script setup>
+import { ref, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
 import Sidebar from '@/components/sidebar.vue'
 import Button from '@/components/ui/button.vue'
 import Breadcrumb from '@/components/breadcrumb.vue'
 import Card from '@/components/ui/card.vue'
+
+import { find } from '@/services/users'
+import { formatDate, avatar } from '@/utils'
 
 const breadcrumbItems = [
   { label: "Home", href: "/" },
@@ -10,6 +15,19 @@ const breadcrumbItems = [
   { label: "Usuários", href: "/administrador/usuarios" },
   { label: "Visualizar", href: "/administrador/usuarios/visualizar" },
 ];
+
+const route = useRoute()
+const userId = ref(route.params.id)
+const user = ref("")
+
+onMounted(() => {
+  fetchUser(userId)
+})
+
+const fetchUser = async (userId) => {
+  const response = await find(userId)
+  user.value = response.user
+}
 </script>
 
 <template>
@@ -44,26 +62,26 @@ const breadcrumbItems = [
         <div class="grid grid-cols-4 gap-4 mb-6 mt-4 rounded-lg shadow-sm">
           <Card customClass="col-span-1 " title="Foto">
             <div class="flex justify-center items-center mt-5 pt-2 pb-5">
-              <img src="/placeholder.svg" width="200" alt="" srcset="">
+              <img :src="avatar(user?.avatar?.url)" width="200" alt="" srcset="">
             </div>
           </Card>
           <Card customClass="col-span-3" title="Informações Pessoais">
-            <dl className="divide-y divide-gray-200">
-              <div className="py-3 grid grid-cols-3">
-                <dt className="text-sm font-medium text-gray-500">Nome completo</dt>
-                <dd className="text-sm text-gray-900 col-span-2">Luiz Fernando Picolo</dd>
+            <dl class="divide-y divide-gray-200">
+              <div class="py-3 grid grid-cols-3">
+                <dt class="text-sm font-medium text-gray-500">Nome completo</dt>
+                <dd class="text-sm text-gray-900 col-span-2">{{ user.name }}</dd>
               </div>
-              <div className="py-3 grid grid-cols-3">
-                <dt className="text-sm font-medium text-gray-500">Email</dt>
-                <dd className="text-sm text-gray-900 col-span-2">luiz.picolo@ifms.edu.br</dd>
+              <div class="py-3 grid grid-cols-3">
+                <dt class="text-sm font-medium text-gray-500">Email</dt>
+                <dd class="text-sm text-gray-900 col-span-2">{{ user.email }}</dd>
               </div>
-              <div className="py-3 grid grid-cols-3">
-                <dt className="text-sm font-medium text-gray-500">SIAPE</dt>
-                <dd className="text-sm text-gray-900 col-span-2">1357157</dd>
+              <div class="py-3 grid grid-cols-3">
+                <dt class="text-sm font-medium text-gray-500">SIAPE</dt>
+                <dd class="text-sm text-gray-900 col-span-2">{{ user.siape }}</dd>
               </div>
-              <div className="py-3 grid grid-cols-3">
-                <dt className="text-sm font-medium text-gray-500">Campus</dt>
-                <dd className="text-sm text-gray-900 col-span-2">Nova Andradina</dd>
+              <div class="py-3 grid grid-cols-3">
+                <dt class="text-sm font-medium text-gray-500">Campus</dt>
+                <dd class="text-sm text-gray-900 col-span-2">{{ user.polo?.name }}</dd>
               </div>
             </dl>
           </Card>
@@ -82,36 +100,50 @@ const breadcrumbItems = [
             </Button>
           </Card>
           <Card customClass="col-span-3" title="Informações de Acesso" description="Aqui será um diagrama">
-            <dl className="divide-y divide-gray-200">
-              <div className="py-3 grid grid-cols-3">
-                <dt className="text-sm font-medium text-gray-500">Nome de usuário</dt>
-                <dd className="text-sm text-gray-900 col-span-2">Luiz Fernando Picolo</dd>
+            <dl class="divide-y divide-gray-200">
+              <div class="py-3 grid grid-cols-3">
+                <dt class="text-sm font-medium text-gray-500">Nome de usuário</dt>
+                <dd class="text-sm text-gray-900 col-span-2">{{ user.username }}</dd>
               </div>
-              <div className="py-3 grid grid-cols-3">
-                <dt className="text-sm font-medium text-gray-500">Administrador</dt>
-                <dd className="text-sm text-gray-900 col-span-2">
+              <div class="py-3 grid grid-cols-3">
+                <dt class="text-sm font-medium text-gray-500">Administrador</dt>
+                <dd class="text-sm text-gray-900 col-span-2">
                   <span
-                    className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                    v-if="user.admin"
+                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                     Ativo
+                  </span>
+                  <span
+                    v-else class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                    Não
                   </span>
                 </dd>
               </div>
-              <div className="py-3 grid grid-cols-3">
-                <dt className="text-sm font-medium text-gray-500">Status</dt>
-                <dd className="text-sm text-gray-900 col-span-2">
+              <div class="py-3 grid grid-cols-3">
+                <dt class="text-sm font-medium text-gray-500">Status</dt>
+                <dd class="text-sm text-gray-900 col-span-2">
                   <span
-                    className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                    v-if="user.status"
+                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                     Ativo
+                  </span>
+                  <span
+                    v-else class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                    Não
                   </span>
                 </dd>
               </div>
-              <div className="py-3 grid grid-cols-3">
-                <dt className="text-sm font-medium text-gray-500">Data de criação</dt>
-                <dd className="text-sm text-gray-900 col-span-2">10/10/2025</dd>
+              <div class="py-3 grid grid-cols-3">
+                <dt class="text-sm font-medium text-gray-500">Data de criação</dt>
+                <dd class="text-sm text-gray-900 col-span-2">
+                  {{ formatDate(user.created_at) }}
+                </dd>
               </div>
-              <div className="py-3 grid grid-cols-3">
-                <dt className="text-sm font-medium text-gray-500">Último acesso</dt>
-                <dd className="text-sm text-gray-900 col-span-2">10/10/2025</dd>
+              <div class="py-3 grid grid-cols-3">
+                <dt class="text-sm font-medium text-gray-500">Último acesso</dt>
+                <dd class="text-sm text-gray-900 col-span-2">
+                  {{ formatDate(user.updated_at) }}
+                </dd>
               </div>
             </dl>
           </Card>

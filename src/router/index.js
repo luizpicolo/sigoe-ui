@@ -12,6 +12,7 @@ import CourseList from '@/views/courses/list.vue'
 import SchoolGroupsList from '@/views/school_groups/list.vue'
 import IncidentsList from '@/views/incidents/list.vue'
 import IncidentsNew from '@/views/incidents/new.vue'
+import IncidentsView from '@/views/incidents/show.vue'
 
 const routes = [
   { path: '/', component: Login, meta: { auth: false } },
@@ -25,6 +26,7 @@ const routes = [
   { path: '/administrador/turmas/listar', component: SchoolGroupsList, meta: { auth: true } },
   { path: '/ocorrencias/ocorrencias/listar', component: IncidentsList, meta: { auth: true } },
   { path: '/ocorrencias/ocorrencias/novo', component: IncidentsNew, meta: { auth: true } },
+  { path: '/administrador/ocorrencias/visualizar/:id', component: IncidentsView, meta: { auth: true } },
 ]
 
 const router = createRouter({

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
 export const list = async (page = 1, order = 'id', search = null) => {
   const token = localStorage.getItem('jwt')
@@ -25,4 +25,17 @@ export const list = async (page = 1, order = 'id', search = null) => {
     console.error('Erro ao buscar usuários:', error);
     return { users: [], total: 0 };
   }
+}
+
+export const find = async (id) => {
+  const token = localStorage.getItem('jwt')
+  if (!token) return false
+
+  const response = await axios.get(`${BASE_URL}/api/users/${id.value}`, {
+      headers: { Authorization: token },
+  });
+
+  return {
+    user: response.data.user,
+  };
 }

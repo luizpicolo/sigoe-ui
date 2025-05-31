@@ -134,7 +134,7 @@ const updateHandler = (newPage) => {
                   <i class="fa-solid fa-check text-green-600"></i>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  <Button customClass="w-full bg-green-600 hover:bg-green-700 focus:ring-green-500" to="/administrador/usuarios/visualizar/9">
+                  <Button customClass="w-full bg-green-600 hover:bg-green-700 focus:ring-green-500" to="/administrador/ocorrencias/visualizar/9">
                     <i class="fa-solid fa-eye"></i>
                     Visualizar
                   </Button>

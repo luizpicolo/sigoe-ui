@@ -1,9 +1,11 @@
-<script setup>
+<script setup>;
 import { ref, onMounted } from 'vue'
 import Input from '@/components/ui/input.vue'
 import { useRouter } from 'vue-router'
 import { isTokenValid } from '@/services/authentication'
 import axios from 'axios'
+
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
 const router = useRouter()
 const username = ref('')
@@ -21,7 +23,7 @@ onMounted(async () => {
 const handleSubmit = async () => {
   error.value = ''
   try {
-    const response = await axios.post('http://localhost:3000/api/auth/login', {
+    const response = await axios.post(`${BASE_URL}/api/auth/login`, {
       user: {
         username: username.value,
         password: password.value
