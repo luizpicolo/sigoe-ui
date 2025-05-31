@@ -125,7 +125,7 @@ onMounted(() => {
 
           <!-- Actions -->
           <Card customClass="col-span-1" title="Ações">
-            <Button :to="`/administrador/estudantes/editar/${student.id}`" customClass="mt-4 w-full bg-blue-600 hover:bg-blue-700 focus:ring-blue-500">
+            <Button variant="info" :to="`/administrador/estudantes/editar/${student.id}`">
               <i class="fa-solid fa-edit"></i>
               Editar Estudante
             </Button>

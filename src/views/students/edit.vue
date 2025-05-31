@@ -1,18 +1,20 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import Sidebar from '@/components/sidebar.vue'
 import Button from '@/components/ui/button.vue'
 import Breadcrumb from '@/components/breadcrumb.vue'
 import Card from '@/components/ui/card.vue'
 import Input from '@/components/ui/input.vue'
+import Alert from '@/components/ui/alert.vue'
 import Header from '@/components/header.vue'
 
 const route = useRoute()
+const router = useRouter()
 const studentId = ref(route.params.id)
 
 const breadcrumbItems = [
-  { label: "Home", href: "/" },
+  { label: "Home", href: "/home" },
   { label: "Administrador", href: "/administrador" },
   { label: "Estudantes", href: "/administrador/estudantes/listar" },
   { label: "Editar", href: `/administrador/estudantes/editar/${studentId.value}` },
@@ -29,23 +31,48 @@ const student = ref({
   contact: ""
 })
 
-const handleSubmit = async () => {
-  // Implementar lógica de envio do formulário
-  console.log('Formulário enviado', student.value)
+const isSubmitting = ref(false)
+const successMessage = ref('')
+const errorMessage = ref('')
+
+const handleSubmit = async (event) => {
+  event.preventDefault()
+  
+  errorMessage.value = ''
+  successMessage.value = ''
+  
+  // Validações
+  if (student.value.password && student.value.password !== student.value.confirmPassword) {
+    errorMessage.value = 'As senhas não coincidem.'
+    return
+  }
+  
+  isSubmitting.value = true
+  
+  try {
+    // Simulação de chamada de API
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    
+    successMessage.value = 'Dados do estudante atualizados com sucesso!'
+    
+  } catch (error) {
+    errorMessage.value = 'Erro ao atualizar dados do estudante. Tente novamente.'
+  } finally {
+    isSubmitting.value = false
+  }
+}
+
+const dismissError = () => {
+  errorMessage.value = ''
+}
+
+const dismissSuccess = () => {
+  successMessage.value = ''
 }
 
 onMounted(() => {
   // fetchStudent(studentId.value)
 })
-
-// const fetchStudent = async (id) => {
-//   try {
-//     const response = await findStudent(id)
-//     student.value = response.student
-//   } catch (error) {
-//     console.error('Erro ao buscar dados do estudante:', error)
-//   }
-// }
 </script>
 
 <template>
@@ -62,7 +89,25 @@ onMounted(() => {
 
         <h1 class="text-2xl font-bold mb-6">Editar estudante</h1>
 
-        <form @submit.prevent="handleSubmit" class="space-y-6">
+        <Alert 
+          v-if="errorMessage"
+          type="error"
+          :message="errorMessage"
+          dismissible
+          @dismiss="dismissError"
+          class="mb-4"
+        />
+
+        <Alert 
+          v-if="successMessage"
+          type="success"
+          :message="successMessage"
+          dismissible
+          @dismiss="dismissSuccess"
+          class="mb-4"
+        />
+
+        <form @submit="handleSubmit" class="space-y-6">
           <!-- Dados Pessoais -->
           <Card customClass="mb-4">
             <div class="border-b border-gray-200 pb-2 mb-4">
@@ -147,10 +192,22 @@ onMounted(() => {
             </div>
           </Card>
 
-          <div class="flex justify-start">
-            <Button customClass="bg-green-600 hover:bg-green-700 focus:ring-green-500">
-              <i class="fa-solid fa-save mr-1"></i>
-              Salvar
+          <div class="flex justify-start space-x-3">
+            <Button 
+              variant="secondary"
+              :to="`/administrador/estudantes/visualizar/${student.id}`"
+            >
+              <i class="fa-solid fa-times mr-2"></i>
+              Cancelar
+            </Button>
+            <Button 
+              type="submit"
+              variant="success"
+              :loading="isSubmitting"
+              :disabled="isSubmitting"
+            >
+              <i v-if="!isSubmitting" class="fa-solid fa-save mr-2"></i>
+              {{ isSubmitting ? 'Salvando...' : 'Salvar' }}
             </Button>
           </div>
         </form>

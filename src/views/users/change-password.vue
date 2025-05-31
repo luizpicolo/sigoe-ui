@@ -1,14 +1,18 @@
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import Sidebar from '@/components/sidebar.vue'
 import Button from '@/components/ui/button.vue'
 import Breadcrumb from '@/components/breadcrumb.vue'
 import Card from '@/components/ui/card.vue'
 import Input from '@/components/ui/input.vue'
+import Alert from '@/components/ui/alert.vue'
 import Header from '@/components/header.vue'
 
+const router = useRouter()
+
 const breadcrumbItems = [
-  { label: "Home", href: "/" },
+  { label: "Home", href: "/home" },
   { label: "Trocar Senha", href: "/trocar-senha" },
 ];
 
@@ -19,7 +23,9 @@ const isSubmitting = ref(false);
 const errorMessage = ref('');
 const successMessage = ref('');
 
-const handleSubmit = async () => {
+const handleSubmit = async (event) => {
+  event.preventDefault()
+  
   // Reset messages
   errorMessage.value = '';
   successMessage.value = '';
@@ -63,11 +69,20 @@ const handleSubmit = async () => {
     newPassword.value = '';
     confirmPassword.value = '';
   } catch (error) {
+    console.error('Erro ao alterar senha:', error);
     errorMessage.value = 'Erro ao alterar a senha. Por favor, tente novamente.';
   } finally {
     isSubmitting.value = false;
   }
 };
+
+const dismissError = () => {
+  errorMessage.value = '';
+}
+
+const dismissSuccess = () => {
+  successMessage.value = '';
+}
 </script>
 
 <template>
@@ -84,23 +99,27 @@ const handleSubmit = async () => {
 
         <h1 class="text-2xl font-bold mb-6">Trocar Senha</h1>
 
-        <div class="max-w-2xl">
+        <div class="max-w-full">
           <Card title="Alterar Senha" icon="lock" customClass="mb-6">
-            <div v-if="errorMessage" class="mb-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md">
-              <div class="flex">
-                <i class="fa-solid fa-circle-exclamation mr-3 mt-0.5"></i>
-                <span>{{ errorMessage }}</span>
-              </div>
-            </div>
+            <Alert 
+              v-if="errorMessage"
+              type="error"
+              :message="errorMessage"
+              dismissible
+              @dismiss="dismissError"
+              class="mb-4"
+            />
 
-            <div v-if="successMessage" class="mb-4 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-md">
-              <div class="flex">
-                <i class="fa-solid fa-circle-check mr-3 mt-0.5"></i>
-                <span>{{ successMessage }}</span>
-              </div>
-            </div>
+            <Alert 
+              v-if="successMessage"
+              type="success"
+              :message="successMessage"
+              dismissible
+              @dismiss="dismissSuccess"
+              class="mb-4"
+            />
 
-            <form @submit.prevent="handleSubmit" class="space-y-6">
+            <form @submit="handleSubmit" class="space-y-6">
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Senha Atual</label>
                 <Input 
@@ -133,15 +152,15 @@ const handleSubmit = async () => {
               </div>
               
               <div class="flex justify-end">
-                <Button 
+                <button
                   type="submit"
-                  customClass="bg-green-600 hover:bg-green-700 focus:ring-green-500"
                   :disabled="isSubmitting"
+                  class="justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 bg-green-600 hover:bg-green-700 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <i v-if="isSubmitting" class="fa-solid fa-spinner fa-spin mr-2"></i>
                   <i v-else class="fa-solid fa-save mr-2"></i>
                   {{ isSubmitting ? 'Alterando...' : 'Alterar Senha' }}
-                </Button>
+                </button>
               </div>
             </form>
           </Card>

@@ -86,15 +86,15 @@ const fetchUser = async (userId) => {
             </dl>
           </Card>
           <Card customClass="col-span-1" title="Ações">
-            <Button to="/administrador/usuarios/permissoes/9" customClass="mt-4 w-full bg-green-600 hover:bg-green-700 focus:ring-green-500">
+            <Button variant="info" to="/administrador/usuarios/permissoes/9" customClass="w-full">
                 <i class="fa-solid fa-edit"></i>
               Gerenciar Permissões
             </Button>
-            <Button customClass="mt-4 w-full bg-blue-600 hover:bg-blue-700 focus:ring-blue-500">
+            <Button to="" customClass="mt-4 w-full">
               <i class="fa-solid fa-edit"></i>
               Editar Usuário
             </Button>
-            <Button customClass="mt-4 w-full bg-red-600 hover:bg-red-700 focus:ring-red-500">
+            <Button to="" variant="danger" customClass="mt-4 w-full">
               <i class="fa-solid fa-trash-alt"></i>
               Excluir Usuário
             </Button>

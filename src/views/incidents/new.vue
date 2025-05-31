@@ -8,11 +8,6 @@ import Select from '@/components/ui/select.vue'
 
 import { ref } from 'vue'
 
-// https://github.com/HENNGE/vue3-pagination
-import VPagination from "@hennge/vue3-pagination";
-import "@hennge/vue3-pagination/dist/vue3-pagination.css";
-
-
 const breadcrumbItems = [
   { label: "Home", href: "/" },
   { label: "Administrador", href: "/" },
@@ -21,7 +16,9 @@ const breadcrumbItems = [
 ];
 
 const page = ref(1);
-const updateHandler = (newPage) => {
+
+const handleSubmit = async (event) => {
+  event.preventDefault()
   page.value = newPage;
   console.log(`Page updated to: ${newPage}`);
 };
