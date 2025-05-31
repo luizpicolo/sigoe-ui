@@ -128,7 +128,7 @@ const updateHandler = (newPage) => {
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">123443</td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">IFMS</td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  <Button customClass="w-full bg-green-600 hover:bg-green-700 focus:ring-green-500" to="/administrador/usuarios/visualizar/9">
+                  <Button customClass="w-full bg-green-600 hover:bg-green-700 focus:ring-green-500" to="/administrador/estudantes/visualizar/9">
                     <i class="fa-solid fa-eye"></i>
                     Visualizar
                   </Button>

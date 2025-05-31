@@ -143,7 +143,7 @@ onMounted(() => {
 
           <!-- Actions -->
           <Card customClass="col-span-1" title="Ações">
-            <Button customClass="mt-4 w-full bg-blue-600 hover:bg-blue-700 focus:ring-blue-500">
+            <Button customClass="mt-4 w-full bg-blue-600 hover:bg-blue-700 focus:ring-blue-500" to="/ocorrencias/ocorrencias/editar/1">
               <i class="fa-solid fa-edit"></i>
               Editar Ocorrência
             </Button>
