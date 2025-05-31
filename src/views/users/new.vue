@@ -153,14 +153,14 @@ const updateHandler = () => {
               </div>
             </Card>
           </div>
-          <div class="flex justify-end">
-            <Button customClass="mr-2 bg-white !border-gray-400 !text-gray-900 hover:bg-gray-100 focus:ring-gray-300">
-              Cancelar
+          <div class="flex justify-start">
+            <Button customClass="mr-2 bg-green-600 hover:bg-green-700 focus:ring-green-500">
+              <i class="fa-solid fa-save"></i>
+              Cadastrar usuário
             </Button>
-            <Button customClass="bg-green-600 hover:bg-green-700 focus:ring-green-500">
-            <i class="fa-solid fa-save"></i>
-            Cadastrar usuário
-          </Button>
+            <Button customClass="bg-white !border-gray-400 !text-gray-900 hover:bg-gray-100 focus:ring-gray-300">
+                Cancelar
+            </Button>
           </div>
           
         </form>

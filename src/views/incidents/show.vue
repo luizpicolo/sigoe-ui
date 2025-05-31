@@ -147,7 +147,7 @@ onMounted(() => {
               <i class="fa-solid fa-edit"></i>
               Editar Ocorrência
             </Button>
-            <Button customClass="mt-4 w-full bg-green-600 hover:bg-green-700 focus:ring-green-500">
+            <Button to="/ocorrencias/relatorio" customClass="mt-4 w-full bg-green-600 hover:bg-green-700 focus:ring-green-500">
               <i class="fa-solid fa-print"></i>
               Imprimir Relatório
             </Button>

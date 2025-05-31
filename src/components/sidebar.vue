@@ -24,7 +24,7 @@ defineProps({
         <ul class="space-y-1">
           <li>
             <router-link
-              to="/trocar-senha"
+              to="/administrador/usuarios/trocar-senha"
               class="block px-2 py-1 text-sm hover:bg-gray-100 rounded"
               :class="{ 'bg-green-50 text-green-700': activePage === 'trocar-senha', 'text-gray-700': activePage !== 'trocar-senha' }"
             >

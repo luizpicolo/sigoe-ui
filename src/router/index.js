@@ -16,6 +16,8 @@ import IncidentsList from "@/views/incidents/list.vue"
 import IncidentsNew from "@/views/incidents/new.vue"
 import IncidentsView from "@/views/incidents/show.vue"
 import IncidentsEdit from "@/views/incidents/edit.vue"
+import IncidentsReport from "@/views/incidents/report.vue"
+import ChangePassword from "@/views/users/change-password.vue"
 
 const routes = [
   { path: "/", component: Login, meta: { auth: false } },
@@ -26,6 +28,7 @@ const routes = [
   { path: "/administrador/usuarios/visualizar/:id", component: UserView, meta: { auth: true } },
   { path: "/administrador/usuarios/novo", component: UserNew, meta: { auth: true } },
   { path: "/administrador/usuarios/permissoes/:id/", component: UserPermissions, meta: { auth: true } },
+  { path: "/administrador/usuarios/trocar-senha", component: ChangePassword, meta: { auth: true } },
 
   // Estudantes
   { path: "/administrador/estudantes/listar", component: StudentList, meta: { auth: true } },
@@ -41,6 +44,7 @@ const routes = [
   { path: "/ocorrencias/ocorrencias/novo", component: IncidentsNew, meta: { auth: true } },
   { path: "/ocorrencias/ocorrencias/visualizar/:id", component: IncidentsView, meta: { auth: true } },
   { path: "/ocorrencias/ocorrencias/editar/:id", component: IncidentsEdit, meta: { auth: true } },
+  { path: "/ocorrencias/relatorio", component: IncidentsReport, meta: { auth: true } },
 ]
 
 const router = createRouter({
