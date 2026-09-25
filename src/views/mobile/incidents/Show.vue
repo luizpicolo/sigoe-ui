@@ -75,7 +75,7 @@ onMounted(load)
       <section class="mt-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
         <h3 class="font-bold">Regulamento</h3>
         <div class="mt-3 space-y-2 text-sm">
-          <p v-for="item in incident.student_duties || []" :key="item.id">• {{ item.name || item.description }}</p>
+          <p v-for="item in incident.student_duties || []" :key="item.id">• {{ item.item || item.name || item.description }}</p>
           <p v-for="item in incident.prohibition_and_responsibilities || []" :key="item.id">• {{ item.name || item.description }}</p>
           <p v-if="!incident.student_duties?.length && !incident.prohibition_and_responsibilities?.length" class="text-slate-500">Nenhum item registrado.</p>
         </div>
