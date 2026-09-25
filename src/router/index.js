@@ -21,6 +21,12 @@ import ChangePassword from "@/views/users/change-password.vue"
 
 const routes = [
   { path: "/", component: Login, meta: { auth: false } },
+  { path: "/mobile/login", component: MobileLogin, meta: { auth: false, mobile: true } },
+  { path: "/mobile/dashboard", component: MobileDashboard, meta: { auth: true, mobile: true } },
+  { path: "/mobile/incidents", component: MobileIncidents, meta: { auth: true, mobile: true } },
+  { path: "/mobile/incidents/new", component: MobileIncidentForm, meta: { auth: true, mobile: true } },
+  { path: "/mobile/incidents/:id", component: MobileIncidentShow, meta: { auth: true, mobile: true } },
+  { path: "/mobile/incidents/:id/edit", component: MobileIncidentForm, meta: { auth: true, mobile: true } },
   { path: "/home", component: Home, meta: { auth: true } },
 
   // Usuários
