@@ -63,7 +63,7 @@ router.beforeEach(async (to, _from, next) => {
     if (await isTokenValid()) {
       next()
     } else {
-      next({ path: "/" })
+      next({ path: to.meta.mobile ? "/mobile/login" : "/" })
     }
   } else {
     next()
