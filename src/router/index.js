@@ -18,6 +18,11 @@ import IncidentsView from "@/views/incidents/show.vue"
 import IncidentsEdit from "@/views/incidents/edit.vue"
 import IncidentsReport from "@/views/incidents/report.vue"
 import ChangePassword from "@/views/users/change-password.vue"
+import MobileLogin from "@/views/mobile/Login.vue"
+import MobileDashboard from "@/views/mobile/Dashboard.vue"
+import MobileIncidents from "@/views/mobile/incidents/Index.vue"
+import MobileIncidentForm from "@/views/mobile/incidents/Form.vue"
+import MobileIncidentShow from "@/views/mobile/incidents/Show.vue"
 
 const routes = [
   { path: "/", component: Login, meta: { auth: false } },
