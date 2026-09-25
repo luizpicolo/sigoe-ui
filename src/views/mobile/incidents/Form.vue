@@ -32,7 +32,7 @@ const form = reactive({
   prohibition_and_responsibility_ids: [],
 })
 
-const label = item => item?.name || item?.description || item?.title || item?.label || item?.identifier || String(item?.id ?? '')
+const label = item => item?.name || item?.label || item?.item || item?.description || item?.title || item?.identifier || String(item?.id ?? item?.value ?? '')
 const idOf = item => item?.id ?? item?.value
 const loadStudents = async () => {
   const data = await listStudents(1, 'name', studentSearch.value)
@@ -166,7 +166,7 @@ onMounted(load)
         <label class="mt-4 block text-sm font-semibold">Sanção
           <select v-model="form.sanction" class="mt-2 w-full rounded-xl border border-slate-300 bg-white px-3 py-3">
             <option value="">Selecione</option>
-            <option v-for="item in optionsData.sanctions" :key="idOf(item)" :value="idOf(item)">{{ label(item) }}</option>
+            <option v-for="item in optionsData.sanctions" :key="item.value" :value="item.value">{{ item.label }}</option>
           </select>
         </label>
         <label class="mt-4 flex gap-3 text-sm font-semibold"><input v-model="form.is_resolved" type="checkbox" class="mt-1" /> Ocorrência resolvida</label>
