@@ -10,7 +10,6 @@ const menuOpen = ref(false)
 const navItems = [
   { label: 'Dashboard', to: '/mobile/dashboard', icon: 'fa-chart-pie' },
   { label: 'Ocorrências', to: '/mobile/incidents', icon: 'fa-triangle-exclamation' },
-  { label: 'Estudantes', to: '/mobile/students', icon: 'fa-user-graduate' },
 ]
 
 const pageTitle = computed(() => {
